@@ -26,6 +26,12 @@ async function getUserData(id) {
   };
   try {
     const dbName = await central(id);
+
+    const basicInfoPromise = dbs[dbName](id);
+
+    const vaultInfoPromise = vault(id);
+
+    const [basicInfo, vaultInfo] = await Promise.all([basicInfoPromise, vaultInfoPromise]);
   } catch (error) {
     console.log(error)
     error.message = "NO!"
