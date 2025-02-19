@@ -16,11 +16,16 @@ console.log(val3);
 
 
 
-function getUserData(id) {
+async function getUserData(id) {
   const dbs = {
     db1: db1,
     db2: db2,
     db3: db3,
   };
+  try {
+
+  } catch (error) {
+    
+  }
 }
 
