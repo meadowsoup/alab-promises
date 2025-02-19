@@ -25,9 +25,11 @@ async function getUserData(id) {
     db3: db3,
   };
   try {
-    console.log(db1)
+    const dbName = await central(id);
   } catch (error) {
-    console.log(error);
+    console.log(error)
+    error.message = "NO!"
   }
 }
 
+getUserData(11)
