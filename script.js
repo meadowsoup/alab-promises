@@ -17,6 +17,8 @@ console.log(val3);
 
 
 async function getUserData(id) {
+  if (typeof id !== "number") throw new Error("Invalid Input -- Not a Number");
+
   const dbs = {
     db1: db1,
     db2: db2,
@@ -25,7 +27,7 @@ async function getUserData(id) {
   try {
 
   } catch (error) {
-    
+
   }
 }
 
