@@ -32,10 +32,23 @@ async function getUserData(id) {
     const vaultInfoPromise = vault(id);
 
     const [basicInfo, vaultInfo] = await Promise.all([basicInfoPromise, vaultInfoPromise]);
+
+    return {
+      id,
+      name: vaultInfo.name,
+      username: basicInfo.username,
+      email: vaultInfo.email,
+      address: vaultInfo.address,
+      phone: vaultInfo.phone,
+      website: basicInfo.website,
+      company: basicInfo.company,
+    };
   } catch (error) {
     console.log(error)
     error.message = "NO!"
   }
 }
 
-getUserData(11)
+getUserData(3)
+.then(user => console.log(user))
+.catch(error => console.error(error));
