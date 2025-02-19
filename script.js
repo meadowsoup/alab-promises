@@ -25,9 +25,9 @@ async function getUserData(id) {
     db3: db3,
   };
   try {
-
+    
   } catch (error) {
-
+    console.log(error);
   }
 }
 
