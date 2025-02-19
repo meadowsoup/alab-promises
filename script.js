@@ -17,21 +17,33 @@ console.log(val3);
 
 
 async function getUserData(id) {
-  if (typeof id !== "number") throw new Error("Invalid Input -- Not a Number");
-
-  const dbs = {
-    db1: db1,
-    db2: db2,
-    db3: db3,
-  };
   try {
-    const dbName = await central(id);
+  if (typeof id !== "number" || id < 1 || id > 10) {
+    throw new Error("Invalid ID")
+  };
 
-    const basicInfoPromise = dbs[dbName](id);
+  const dbName = await central(id);
 
-    const vaultInfoPromise = vault(id);
+  const dbs = {db1, db2, db3};
 
-    const [basicInfo, vaultInfo] = await Promise.all([basicInfoPromise, vaultInfoPromise]);
+  const [basicInfo, vaultInfo] = await Promise.all([
+    dbs[dbName](id),
+    vault(id),
+  ]);
+
+  // const dbs = {
+  //   db1: db1,
+  //   db2: db2,
+  //   db3: db3,
+  // };
+  // try {
+  //   const dbName = await central(id);
+
+  //   const basicInfoPromise = dbs[dbName](id);
+
+  //   const vaultInfoPromise = vault(id);
+
+  //   const [basicInfo, vaultInfo] = await Promise.all([basicInfoPromise, vaultInfoPromise]);
 
     return {
       id,
@@ -44,11 +56,18 @@ async function getUserData(id) {
       company: basicInfo.company,
     };
   } catch (error) {
-    console.log(error)
-    error.message = "NO!"
+    return Promise.reject(new Error(`Error fetching: ${error.message}`))
   }
 }
 
 getUserData(3)
-.then(user => console.log(user))
-.catch(error => console.error(error));
+.then(user => console.log("User Data (ID 3):", user))
+.catch(error => console.error("Error:", error.message));
+
+getUserData(11)
+.then(user => console.log("User Data (ID 11):", user))
+.catch(error => console.error("Error:", error.message));
+
+getUserData("not a number")
+.then(user => console.log("User Data:", user))
+.catch(error => console.error("Error:", error.message));
